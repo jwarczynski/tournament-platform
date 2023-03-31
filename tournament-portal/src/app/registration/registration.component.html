@@ -1,0 +1,44 @@
+<div class="container">
+  <form [formGroup]="registrationForm" (ngSubmit)="onRegister()" novalidate>
+    <div class="mb-3">
+      <label for="firstName" class="form-label">First Name</label>
+      <input type="text" class="form-control" id="firstName" formControlName="firstName">
+      <div *ngIf="registrationForm.get('firstName')?.invalid && registrationForm.get('firstName')?.touched" class="text-danger">
+        First Name is required.
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="lastName" class="form-label">Last Name</label>
+      <input type="text" class="form-control" id="lastName" formControlName="lastName">
+      <div *ngIf="registrationForm.get('lastName')?.invalid && registrationForm.get('lastName')?.touched" class="text-danger">
+        Last Name is required.
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email address</label>
+      <input type="email" class="form-control" id="email" formControlName="email">
+      <div *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched" class="text-danger">
+        Enter a valid email.
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" class="form-control" id="password" formControlName="password">
+      <div *ngIf="registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched" class="text-danger">
+        Password is required.
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="repeatPassword" class="form-label">Repeat Password</label>
+      <input type="password" class="form-control" id="repeatPassword" formControlName="repeatPassword">
+      <div *ngIf="registrationForm.get('repeatPassword')?.invalid && registrationForm.get('repeatPassword')?.touched" class="text-danger">
+        Repeat Password is required.
+      </div>
+      <div *ngIf="registrationForm.get('repeatPassword')?.value !== registrationForm.get('password')?.value &&
+        registrationForm.get('repeatPassword')?.touched" class="text-danger">
+        Passwords do not match.
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Register</button>
+  </form>
+</div>
