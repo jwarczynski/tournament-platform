@@ -3,8 +3,8 @@ package pl.warczynski.jedrzej.backend;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
+//import com.mongodb.client.MongoClient;
+//import com.mongodb.client.MongoClients;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -29,17 +29,17 @@ public class BackendApplication implements WebMvcConfigurer {
     registry.addMapping("/**").allowedOrigins("*").allowedMethods("POST", "GET", "PUT", "DELETE", "OPTIONS");
   }
 
-  @Bean
-  public MongoTemplate mongoTemplate() {
-    MongoClientSettings settings = MongoClientSettings.builder()
-            .applyToClusterSettings(builder ->
-                    builder.hosts(Arrays.asList(new ServerAddress("<cluster-address>", 27017))))
-            .credential(MongoCredential.createCredential("<username>", "<database>", "<password>".toCharArray()))
-            .build();
-
-    MongoClient mongoClient = MongoClients.create(settings);
-    return new MongoTemplate(mongoClient, "tournament-platform");
-  }
+//  @Bean
+//  public MongoTemplate mongoTemplate() {
+//    MongoClientSettings settings = MongoClientSettings.builder()
+//            .applyToClusterSettings(builder ->
+//                    builder.hosts(Arrays.asList(new ServerAddress("<cluster-address>", 27017))))
+//            .credential(MongoCredential.createCredential("<username>", "<database>", "<password>".toCharArray()))
+//            .build();
+//
+//    MongoClient mongoClient = MongoClients.create(settings);
+//    return new MongoTemplate(mongoClient, "tournament-platform");
+//  }
 
 
   public static void main(String[] args) {

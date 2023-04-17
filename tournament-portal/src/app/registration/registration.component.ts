@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {HttpClient} from "@angular/common/http";
+import {API_URLS} from "../api-urls";
 
 @Component({
   selector: 'app-registration',
@@ -9,6 +10,8 @@ import {HttpClient} from "@angular/common/http";
 })
 export class RegistrationComponent implements OnInit {
   registrationForm!: FormGroup;
+  registrationSuccessful = false;
+  registrationFailed = false;
 
   constructor(
     private fb: FormBuilder,
@@ -19,7 +22,7 @@ export class RegistrationComponent implements OnInit {
   ngOnInit() {
     this.registrationForm = this.fb.group({
       firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      surname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       repeatPassword: ['', Validators.required]
@@ -29,20 +32,30 @@ export class RegistrationComponent implements OnInit {
   onRegister() {
     if (this.registrationForm.valid) {
       const firstName = this.registrationForm.get('firstName')?.value;
-      const lastName = this.registrationForm.get('lastName')?.value;
+      const surname = this.registrationForm.get('surname')?.value;
       const email = this.registrationForm.get('email')?.value;
       const password = this.registrationForm.get('password')?.value;
 
-      const body = {firstName, lastName, email, password};
+      const body = {firstName, surname, email, password};
 
-      this.http.post('http://localhost:8080/api/register', body).subscribe({
+      this.http.post(API_URLS.registration, body).subscribe({
         next: response => {
           console.log(response);
+          this.registrationSuccessful = true;
+          this.registrationForm.reset();
         },
         error: error => {
+          this.registrationFailed = true;
           console.error(error);
         }
       });
+    }
+  }
+
+  onInputBlur() {
+    if (this.registrationForm.touched) {
+      this.registrationSuccessful = false;
+      this.registrationFailed = false;
     }
   }
 }

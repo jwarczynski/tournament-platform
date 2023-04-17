@@ -10,7 +10,7 @@ public enum AccountStatus {
         this.active = active;
     }
 
-    public boolean getStaus() {
+    public boolean getStatus() {
         return this.active;
     }
 }

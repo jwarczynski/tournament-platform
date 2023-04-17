@@ -1,0 +1,12 @@
+<div class="row justify-content-center">
+  <div class="col-md-10 col-lg-4 mb-4">
+    <div class="card h-100">
+      <img src="{{tournament!.sponsors![0]}}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{tournament.name}}</h5>
+        <p class="card-text">{{tournament.discipline}}</p>
+        <a [routerLink]="['/tournament-detail', tournament._id]" class="btn btn-primary">View details</a>
+      </div>
+    </div>
+  </div>
+</div>

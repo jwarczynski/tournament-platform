@@ -8,15 +8,15 @@
       </div>
     </div>
     <div class="mb-3">
-      <label for="lastName" class="form-label">Last Name</label>
-      <input type="text" class="form-control" id="lastName" formControlName="lastName">
-      <div *ngIf="registrationForm.get('lastName')?.invalid && registrationForm.get('lastName')?.touched" class="text-danger">
+      <label for="surname" class="form-label">Surname</label>
+      <input type="text" class="form-control" id="surname" formControlName="surname">
+      <div *ngIf="registrationForm.get('surname')?.invalid && registrationForm.get('surname')?.touched" class="text-danger">
         Last Name is required.
       </div>
     </div>
     <div class="mb-3">
       <label for="email" class="form-label">Email address</label>
-      <input type="email" class="form-control" id="email" formControlName="email">
+      <input type="email" class="form-control" id="email" formControlName="email" (blur)="onInputBlur()">
       <div *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched" class="text-danger">
         Enter a valid email.
       </div>
@@ -41,4 +41,10 @@
     </div>
     <button type="submit" class="btn btn-primary">Register</button>
   </form>
+  <div *ngIf="registrationSuccessful" class="alert alert-success mt-3">
+    Registration successful!
+  </div>
+  <div *ngIf="registrationFailed" class="alert alert-danger mt-3">
+    Registration failed. Please try again.
+  </div>
 </div>

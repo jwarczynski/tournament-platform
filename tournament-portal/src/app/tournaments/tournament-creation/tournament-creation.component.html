@@ -1,0 +1,46 @@
+<div class="container mt-4">
+  <h2 class="mb-4">Create Tournament</h2>
+  <form [formGroup]="tournamentForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input type="text" class="form-control" id="title" formControlName="title">
+    </div>
+    <div class="mb-3">
+      <label for="discipline" class="form-label">Discipline</label>
+      <input type="text" class="form-control" id="discipline" formControlName="discipline">
+    </div>
+    <div class="mb-3">
+      <label for="entryDeadline" class="form-label">Entry Deadline</label>
+      <input type="date" class="form-control" id="entryDeadline" formControlName="entryDeadline">
+    </div>
+    <div class="mb-3">
+      <label for="entryLimit" class="form-label">Entry Limit</label>
+      <input type="number" class="form-control" id="entryLimit" formControlName="entryLimit">
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea class="form-control" id="description" formControlName="description"></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="location" class="form-label">Location</label>
+      <input type="text" class="form-control" id="location" formControlName="location">
+    </div>
+    <div class="mb-3">
+      <label for="tournamentDate" class="form-label">Tournament Date</label>
+      <input type="date" class="form-control" id="tournamentDate" formControlName="tournamentDate">
+    </div>
+    <div class="mb-3">
+      <label for="sponsorLogos" class="form-label">Sponsor Logos</label>
+      <input type="file" class="form-control" id="sponsorLogos" formControlName="sponsorLogos" multiple>
+    </div>
+    <div class="mb-3">
+      <label for="mainImage" class="form-label">Main Image</label>
+      <input type="file" class="form-control" id="mainImage" formControlName="mainImage">
+    </div>
+    <button type="button" class="btn btn-primary" [disabled]="!tournamentForm.get('location')?.value" (click)="showMap = !showMap">{{ showMap ? 'Hide Map' : 'Show Map' }}</button>
+    <div *ngIf="showMap && tournamentForm.get('location')?.value">
+      <app-google-map [address]="tournamentForm.get('location')?.value"></app-google-map>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
