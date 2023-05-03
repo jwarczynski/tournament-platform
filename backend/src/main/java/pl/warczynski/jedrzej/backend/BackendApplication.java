@@ -12,6 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.security.SecureRandom;
 
 @SpringBootApplication
+@EnableScheduling
 public class BackendApplication implements WebMvcConfigurer {
 
   @Bean
