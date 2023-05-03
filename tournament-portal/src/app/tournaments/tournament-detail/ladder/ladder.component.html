@@ -1,0 +1,7 @@
+<adn-single-elimination-tree
+  [tournament]="tournamentData" [matchTemplate]="myMatchTemplate">
+</adn-single-elimination-tree>
+
+<ng-template #myMatchTemplate let-match>
+  <app-bracket [match]="match" (teamNameClicked)="handleClickEvent($event)"></app-bracket>
+</ng-template>

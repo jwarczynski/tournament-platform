@@ -1,0 +1,27 @@
+//
+// COLORS
+//
+
+$ngtt-background-primary: transparent;
+$ngtt-accent-primary: #1e1e1e;
+$ngtt-background-secondary: #1a1a1a;
+$ngtt-text-color: #fff;
+
+//
+// NgttTournament Tree Configuration
+//
+
+// tournament tree colors
+$ngtt-background-color: $ngtt-background-primary !default;
+$ngtt-line-color-main: $ngtt-accent-primary !default;
+$ngtt-bracket-separator-color: $ngtt-background-secondary !default;
+$ngtt-match-container-background: $ngtt-background-secondary;
+
+//tree scaling
+$ngtt-match-wrapper-width: 200px  !default;
+$ngtt-match-wrapper-height: 100px !default;
+$ngtt-vertical-match-padding: 15px !default;
+$ngtt-round-gutters: 60px !default;
+$ngtt-bracket-border-radius: 0 !default;
+$ngtt-bracket-line-width: 2px !default;
+

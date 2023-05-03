@@ -1,0 +1,273 @@
+@import "adn-variables";
+
+.ngtt-de__container {
+  background-color: $ngtt-background-color;
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+// MATCH
+.ngtt-de__match-component-container {
+  display: flex;
+  height: $ngtt-match-wrapper-height;
+  width: $ngtt-match-wrapper-width;
+  background-color: $ngtt-match-container-background;
+  box-sizing: border-box !important;
+}
+
+.ngtt-de__winners-match-wrapper {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  height: $ngtt-match-wrapper-height + 2 * $ngtt-vertical-match-padding;
+  width: $ngtt-match-wrapper-width + 2* $ngtt-round-gutters;
+  padding: $ngtt-vertical-match-padding $ngtt-round-gutters;
+  position: relative;
+  box-sizing: border-box !important;
+
+  // every bracket line
+  &::after {
+    display: flex;
+    flex-grow: 1;
+    right: 0;
+    position: absolute;
+    width: $ngtt-round-gutters;
+    height: 50%;
+    border-right: $ngtt-bracket-line-width solid $ngtt-line-color-main;
+    content: '';
+    box-sizing: border-box !important;
+  }
+
+  &::before {
+    display: flex;
+    flex-grow: 1;
+    left: 0;
+    top: 50%;
+    position: absolute;
+    width: $ngtt-round-gutters;
+    border-top: $ngtt-bracket-line-width solid $ngtt-line-color-main;
+    content: '';
+    box-sizing: border-box !important;
+  }
+
+  &:nth-child(odd) {
+    &::after {
+      top: 50%;
+      border-top-right-radius: $ngtt-bracket-border-radius;
+      border-top: $ngtt-bracket-line-width solid $ngtt-line-color-main;
+    }
+  }
+
+  &:nth-child(even) {
+    &::after {
+      top: 0;
+      border-bottom-right-radius: $ngtt-bracket-border-radius;
+      border-bottom: $ngtt-bracket-line-width solid $ngtt-line-color-main;
+    }
+  }
+
+  &:first-child:last-child {
+    &::after {
+      border-right: none;
+      border-radius: 0;
+      width: $ngtt-round-gutters - $ngtt-bracket-line-width;
+    }
+  }
+
+  .ngtt-de__winners-round-wrapper:not(:first-child):not(:nth-child(2)):not(:last-child) > & {
+    &::before {
+      width: ($ngtt-match-wrapper-width) + 3*$ngtt-round-gutters;
+      left: -1 * ($ngtt-match-wrapper-width + 2*$ngtt-round-gutters);
+    }
+  }
+
+  .ngtt-de__winners-round-wrapper:first-child > & {
+    &::before {
+      display: none;
+    }
+  }
+}
+
+//final match
+.ngtt-de__finale-match-wrapper {
+  display: flex;
+  flex-grow: 1;
+  align-items: flex-end;
+  height: $ngtt-match-wrapper-height;
+  width: $ngtt-match-wrapper-width;
+  padding: $ngtt-vertical-match-padding $ngtt-round-gutters;
+  position: relative;
+  box-sizing: border-box !important;
+
+  &::before {
+    box-sizing: border-box !important;
+    display: flex;
+    flex-grow: 1;
+    left: 0;
+    top: 50%;
+    position: absolute;
+    width: $ngtt-round-gutters;
+    content: '';
+    bottom: ($ngtt-match-wrapper-height/2) + $ngtt-vertical-match-padding;
+    border-left: $ngtt-bracket-line-width solid $ngtt-line-color-main;
+    border-bottom: $ngtt-bracket-line-width solid $ngtt-line-color-main;
+  }
+
+  &::after {
+    box-sizing: border-box !important;
+    display: flex;
+    flex-grow: 1;
+    left: ($ngtt-match-wrapper-width + 3*($ngtt-round-gutters)) * -1;
+    top: 50%;
+    height: 2%;
+    position: absolute;
+    width: $ngtt-match-wrapper-width + 3*($ngtt-round-gutters) + $ngtt-bracket-line-width;
+    content: '';
+    border-right: $ngtt-bracket-line-width solid $ngtt-line-color-main;
+    border-top: $ngtt-bracket-line-width solid $ngtt-line-color-main;
+    border-top-right-radius: $ngtt-bracket-border-radius;
+  }
+}
+
+
+// winners bracket
+.ngtt-de__winners-bracket-wrapper {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box !important;
+}
+
+.ngtt-de__winners-round-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  box-sizing: border-box !important;
+  min-width: 2*($ngtt-match-wrapper-width + 2*($ngtt-round-gutters));
+
+  &:first-child {
+    min-width: $ngtt-match-wrapper-width + 2*($ngtt-round-gutters);
+  }
+
+  &:last-child {
+    justify-content: flex-end;
+  }
+}
+
+
+//losers bracket
+.ngtt-de__losers-bracket-wrapper {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box !important;
+}
+
+.ngtt-de__losers-round-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: $ngtt-match-wrapper-width + 2*($ngtt-round-gutters);
+  padding-top: $ngtt-match-wrapper-height/2;
+  box-sizing: border-box !important;
+
+  &:nth-child(1) {
+    margin-left: $ngtt-match-wrapper-width + 2*($ngtt-round-gutters);
+  }
+}
+
+.ngtt-de__losers-match-wrapper {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  height: $ngtt-match-wrapper-height + 2 * $ngtt-vertical-match-padding;
+  width: $ngtt-match-wrapper-width + 2 * $ngtt-round-gutters;
+  padding: $ngtt-vertical-match-padding $ngtt-round-gutters;
+  position: relative;
+  box-sizing: border-box !important;
+
+  // every bracket line
+  &::after {
+    display: flex;
+    flex-grow: 1;
+    right: 0;
+    position: absolute;
+    width: $ngtt-round-gutters;
+    height: 50%;
+    content: '';
+    box-sizing: border-box !important;
+  }
+
+  &::before {
+    display: flex;
+    flex-grow: 1;
+    left: -1 * $ngtt-bracket-line-width;
+    top: 50%;
+    position: absolute;
+    width: $ngtt-round-gutters + $ngtt-bracket-line-width;
+    border-top: $ngtt-bracket-line-width solid $ngtt-line-color-main;
+    content: '';
+    box-sizing: border-box !important;
+  }
+
+  .ngtt-de__losers-round-wrapper:nth-child(even):not(:last-child) > & {
+    &:nth-child(odd) {
+      &::after {
+        top: 50%;
+        width: $ngtt-round-gutters;
+        border-top-right-radius: $ngtt-bracket-border-radius;
+        border-top: $ngtt-bracket-line-width solid $ngtt-line-color-main;
+        border-right: $ngtt-bracket-line-width solid $ngtt-line-color-main;
+      }
+    }
+
+    &:nth-child(even) {
+      &::after {
+        top: $ngtt-bracket-line-width / 2;
+        width: $ngtt-round-gutters;
+        border-bottom-right-radius: $ngtt-bracket-border-radius;
+        border-bottom: $ngtt-bracket-line-width solid $ngtt-line-color-main;
+        border-right: $ngtt-bracket-line-width solid $ngtt-line-color-main;
+      }
+    }
+  }
+
+  .ngtt-de__losers-round-wrapper:nth-child(odd):not(:last-child) > & {
+    &:nth-child(odd) {
+      &::after {
+        top: 50%;
+        border-top-right-radius: 0;
+        border-top: $ngtt-bracket-line-width solid $ngtt-line-color-main;
+      }
+    }
+
+    &:nth-child(even) {
+      &::after {
+        top: $ngtt-bracket-line-width;
+        border-bottom-right-radius: 0;
+        border-bottom: $ngtt-bracket-line-width solid $ngtt-line-color-main;
+      }
+    }
+  }
+
+
+  .ngtt-de__losers-round-wrapper:first-child > & {
+    &::before {
+      display: none;
+    }
+  }
+
+  // bracket line to match up to final
+  .ngtt-de__losers-round-wrapper:last-child > & {
+    &::after {
+      right: -$ngtt-bracket-line-width;
+      height: 100%;
+      width: $ngtt-round-gutters + $ngtt-bracket-line-width;
+      top: -50%;
+      border-top: none;
+      border-bottom: $ngtt-bracket-line-width solid $ngtt-line-color-main;
+      border-right: $ngtt-bracket-line-width solid $ngtt-line-color-main;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: $ngtt-bracket-border-radius;
+      box-sizing: border-box !important;
+    }
+  }
+}

@@ -21,6 +21,10 @@ import { TournamentDetailComponent } from './tournaments/tournament-detail/tourn
 import { GoogleMapComponent } from './google-map/google-map.component';
 import { TournamentCreationComponent } from './tournaments/tournament-creation/tournament-creation.component';
 import { LocationSearchComponent } from './location-search/location-search.component';
+import { TournamentSignUpComponent } from './tournaments/tournament-sign-up/tournament-sign-up.component';
+import { LadderComponent } from './tournaments/tournament-detail/ladder/ladder.component';
+import { AdnSingleEliminationTreeModule } from '@adonsio/adn-tournament';
+import { BracketComponent } from './tournaments/tournament-detail/ladder/bracket/bracket.component';
 
 
 @NgModule({
@@ -36,7 +40,10 @@ import { LocationSearchComponent } from './location-search/location-search.compo
     TournamentDetailComponent,
     GoogleMapComponent,
     TournamentCreationComponent,
-    LocationSearchComponent
+    LocationSearchComponent,
+    TournamentSignUpComponent,
+    LadderComponent,
+    BracketComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +53,7 @@ import { LocationSearchComponent } from './location-search/location-search.compo
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    AdnSingleEliminationTreeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

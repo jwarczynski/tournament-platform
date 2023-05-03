@@ -1,0 +1,210 @@
+@import "adn-variables";
+
+
+.ngtt-se__container {
+  background-color: $ngtt-background-color;
+  display: inline-block;
+  box-sizing: border-box !important;
+}
+
+.ngtt-se__match-component-container {
+  display: flex;
+  height: $ngtt-match-wrapper-height;
+  width: $ngtt-match-wrapper-width;
+  background-color: $ngtt-match-container-background;
+  box-sizing: border-box !important;
+}
+
+// winners bracket
+.ngtt-se__bracket-wrapper {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box !important;
+}
+
+.ngtt-se__round-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  min-width: $ngtt-match-wrapper-width + 2*($ngtt-round-gutters);
+  box-sizing: border-box !important;
+}
+.ngtt__match-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  height: 100px;
+  background-color: #466582;
+  border-radius: 6px;
+}
+.ngtt__team-wrapper {
+  display: flex;
+  width: 100%;
+  height: 50px;
+  flex-direction: row;
+  padding: 12px 6px;
+  align-items: center;
+
+}
+
+.ngtt__team-score {
+  padding: 0 20px 0 10px;
+  flex-shrink: 1;
+}
+.ngtt__team-avatar {
+  margin-left: 12px;
+  height: 25px;
+  width: 25px;
+  border-radius: 25px;
+  background-color: darkgray;
+  display: inline-block;
+  flex-shrink: 1;
+}
+
+.ngtt-se__match-wrapper {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  height: $ngtt-match-wrapper-height + 2 * $ngtt-vertical-match-padding;
+  width: $ngtt-match-wrapper-width + 2* $ngtt-round-gutters;
+  padding: $ngtt-vertical-match-padding $ngtt-round-gutters;
+  position: relative;
+  box-sizing: border-box !important;
+  // every bracket line
+  &::after {
+    display: flex;
+    flex-grow: 1;
+    right: 0;
+    position: absolute;
+    width: $ngtt-round-gutters;
+    height: 50%;
+    border-right: $ngtt-bracket-line-width solid $ngtt-line-color-main;
+    content: '';
+    box-sizing: border-box !important;
+  }
+
+  &::before {
+    display: flex;
+    flex-grow: 1;
+    left: 0;
+    top: 50%;
+    position: absolute;
+    width: $ngtt-round-gutters;
+    border-top: $ngtt-bracket-line-width solid $ngtt-line-color-main;
+    content: '';
+    box-sizing: border-box !important;
+  }
+
+  &:nth-child(odd) {
+    &::after {
+      top: 50%;
+      border-top-right-radius: $ngtt-bracket-border-radius;
+      border-top: $ngtt-bracket-line-width solid $ngtt-line-color-main;
+    }
+  }
+
+  &:nth-child(even) {
+    &::after {
+      top: 0;
+      border-bottom-right-radius: $ngtt-bracket-border-radius;
+      border-bottom: $ngtt-bracket-line-width solid $ngtt-line-color-main;
+    }
+  }
+
+  &:first-child:last-child {
+    &::after {
+      display: none;
+    }
+  }
+
+  .ngtt-se__round-wrapper:first-child > & {
+    &::before {
+      display: none;
+    }
+  }
+}
+
+//final match
+.ngtt-se__finale-match-wrapper {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  height: $ngtt-match-wrapper-height + 2 * $ngtt-vertical-match-padding;
+  width: $ngtt-match-wrapper-width + 2* $ngtt-round-gutters;
+  padding: $ngtt-vertical-match-padding $ngtt-round-gutters;
+  position: relative;
+  box-sizing: border-box !important;
+
+  & > .ngtt-se__finale-component-container {
+    display: block;
+    height: $ngtt-match-wrapper-height;
+    width: $ngtt-match-wrapper-width;
+    background-color: $ngtt-match-container-background;
+    margin-bottom: 2*$ngtt-vertical-match-padding;
+  }
+
+  &::before {
+    display: flex;
+    flex-grow: 1;
+    left: 0;
+    top: 50%;
+    position: absolute;
+    width: $ngtt-round-gutters;
+    border-top: $ngtt-bracket-line-width solid $ngtt-line-color-main;
+    content: '';
+  }
+}
+.adn__team-title {
+  margin-left: 12px!important;
+  margin-bottom: 0!important;
+  color: $ngtt-text-color;
+  font-weight: lighter;
+  display: inline-block;
+  flex-grow: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.ngtt__team-wrapper {
+  display: flex;
+  width: 100%;
+  height: 50px;
+  flex-direction: row;
+  padding: 12px 6px;
+  align-items: center;
+}
+
+.adn__team-avatar {
+
+  height: 25px;
+  width: 25px;
+  border-radius: 25px;
+  //background-color: darkgray;
+  display: inline-block;
+  flex-shrink: 1;
+}
+.adn__team-avatar_bg {
+
+  height: 25px;
+  width: 25px;
+  border-radius: 25px;
+  background-color: darkgray;
+  display: inline-block;
+  flex-shrink: 1;
+}
+
+.ngtt__team-score {
+  color: $ngtt-text-color;
+  padding: 0 20px 0 10px;
+  flex-shrink: 1;
+}
+
+.ngtt__match-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  height: 100px;
+  background-color: $ngtt-background-color;
+  border-radius: 6px;
+}
