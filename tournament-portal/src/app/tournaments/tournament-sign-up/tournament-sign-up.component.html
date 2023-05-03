@@ -1,0 +1,43 @@
+<h2>Sign Up for Tournament</h2>
+<form [formGroup]="tournamentForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="licenseNumber">License Number</label>
+    <input type="text" class="form-control" id="licenseNumber" formControlName="licenseNumber">
+    <div *ngIf="tournamentForm.get('licenseNumber').invalid && (tournamentForm.get('licenseNumber').dirty || tournamentForm.get('licenseNumber').touched)" class="alert alert-danger">
+      <div *ngIf="tournamentForm.get('licenseNumber').errors['required']">License Number is required.</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="ranking">Ranking</label>
+    <input type="number" class="form-control" id="ranking" formControlName="ranking">
+    <div *ngIf="tournamentForm.get('ranking').invalid && (tournamentForm.get('ranking').dirty || tournamentForm.get('ranking').touched)" class="alert alert-danger">
+      <div *ngIf="tournamentForm.get('ranking').errors['required']">Ranking is required.</div>
+      <div *ngIf="tournamentForm.get('ranking').errors['min']">Ranking must be greater than 0.</div>
+    </div>
+  </div>
+  <div class="text-center">
+    <button *ngIf="submissionStatus === 'initial'" type="submit" class="btn btn-primary justify-content-center my-3" [disabled]="tournamentForm.invalid ">Submit</button>
+  </div>
+</form>
+<div *ngIf="submissionStatus === 'success'" class="alert alert-success">
+You have been successfully signed up for this tournament
+</div>
+<div *ngIf="submissionStatus === 'error'" class="alert alert-danger">
+  Form submission failed. Please try again later.
+</div>
+<div *ngIf="submissionStatus === 'full application list'" class="alert alert-danger">
+  Sorry, the players limit for this tournament has been already reached
+</div>
+<div *ngIf="submissionStatus === 'already signed up'" class="alert alert-danger">
+  You have been already signed up for this tournament
+</div>
+<nav aria-label="Page navigation">
+  <ul class="pagination justify-content-center">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous" [routerLink]="['/tournament-detail', tournamentId]">
+        <span aria-hidden="true">&laquo; go back</span>
+        <span class="visually-hidden">Previous</span>
+      </a>
+    </li>
+  </ul>
+</nav>

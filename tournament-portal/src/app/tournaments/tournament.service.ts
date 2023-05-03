@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Tournament } from './tournament.model';
 import { API_URLS } from "../api-urls";
+import {TournamentSignUpFormModel} from "./tournament-sign-up/tournament-sign-up-form.model";
 
 @Injectable({
   providedIn: 'root'
@@ -23,11 +24,11 @@ export class TournamentService {
       registrationLimit: 10,
       registrationDeadline: new Date(),
       sponsors: ['/assets/images/sponsor1.png'],
-      mainImage: '/assets/images/sponsor1.png',
+      mainImage: 'sponsor1.png',
       seedPlayers: 8
     },
     {
-      _id: '2',
+      _id: '64451f931e496a3f8ca4a744',
       name: 'Tournament 2',
       discipline: 'Discipline 2',
       description: 'Discipline 2',
@@ -37,7 +38,7 @@ export class TournamentService {
       registrationLimit: 8,
       registrationDeadline: new Date(),
       sponsors: ['/assets/images/sponsor2.png'],
-      mainImage: '/assets/images/sponsor2.png',
+      mainImage: 'sponsor2_1682174701973.png',
       seedPlayers: 16
     },
     {
@@ -51,7 +52,7 @@ export class TournamentService {
       registrationLimit: 12,
       registrationDeadline: new Date(),
       sponsors: ['/assets/images/sponsor3.png'],
-      mainImage: '/assets/images/sponsor3.png',
+      mainImage: 'sponsor3_1682174701957.png',
       seedPlayers: 32
     }
   ];
@@ -83,6 +84,23 @@ export class TournamentService {
     });
   }
 
+  getTournamentImage(filename: string): Observable<Blob> {
+    const options = {
+      responseType: 'blob' as const // Cast responseType to 'blob'
+    };
+    const url = `${API_URLS.tournaments}/image?filename=${filename}`;
+    return this.http.get(url, options);
+  }
+
+  createTournament(formData: FormData) :Observable<Tournament>{
+    return this.http.post<Tournament>(API_URLS.createTournament, formData);
+  }
+
+  signUp(tournamentSignupForm: TournamentSignUpFormModel): Observable<any> {
+    console.log("signup data:", tournamentSignupForm);
+    const url = `${API_URLS.tournaments}/signup`;
+    return this.http.post<any>(url, tournamentSignupForm);
+  }
 
 
 

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Tournament } from '../tournament.model';
 import { TournamentService } from '../tournament.service';
 import {UserService} from "../../common/user.service";
+import {AdnTournament} from "@adonsio/adn-tournament/lib/declarations/interfaces";
 
 declare var google: any;
 
@@ -22,6 +23,7 @@ export class TournamentDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log("detail init");
     const id = this.route.snapshot.paramMap.get('id')!;
     this.tournamentService.getTournament(id).subscribe(tournament => {
       this.tournament = tournament;

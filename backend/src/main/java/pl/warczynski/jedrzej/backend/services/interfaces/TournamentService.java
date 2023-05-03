@@ -14,5 +14,7 @@ public interface TournamentService {
 
     Optional<Tournament> getTournamentById(String id);
 
-    Tournament save(Tournament tournament);
+    Tournament save(TournamentDto tournament);
+
+    ResponseEntity<Map<String,String>> signUp(SingUpFormDto singUpForm);
 }

@@ -1,5 +1,5 @@
 <div class="container mt-4">
-  <div class="row">
+  <div class="row justify-content-center">
     <div class="col-md-6">
       <div class="card ">
         <div class="card-header bg-dark text-white">
@@ -22,34 +22,20 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="row justify-content-center">
     <div class="col-md-6">
-      <div class="card">
-        <div class="card-header bg-secondary text-white">
-          <h4>Registration</h4>
-          <span class="badge badge-secondary">Open Now</span>
+        <div class="mt-4 d-flex justify-content-center">
+          <a [routerLink]="['/tournament-sign-up', tournament._id]" class="btn btn-primary">Register</a>
         </div>
-        <div class="card-body text-bg-secondary">
-          <form>
-            <div class="form-group">
-              <label for="name">Name</label>
-              <input type="text" class="form-control" id="name" required>
-            </div>
-            <div class="form-group">
-              <label for="email">Email address</label>
-              <input type="email" class="form-control" id="email" aria-describedby="emailHelp" required>
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-            </div>
-            <div class="form-group form-check">
-              <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
-              <label class="form-check-label" for="exampleCheck1">I agree to the terms and conditions</label>
-            </div>
-            <button type="submit" class="btn btn-secondary">Register</button>
-          </form>
+        <div class="mt-4 d-flex justify-content-center">
+          <a [routerLink]="['/ladder', tournament._id]" class="btn btn-primary">See ladder</a>
         </div>
-      </div>
-      <div class="mt-4">
-        <a routerLink="/edit-tournament/{{tournament._id}}" *ngIf="isOrganizer" class="btn btn-outline-secondary">Edit tournament</a>
-      </div>
+
+        <div *ngIf="!isOrganizer" class="mt-4 mt-auto">
+          <a routerLink="/edit-tournament/{{tournament._id}}" *ngIf="isOrganizer" class="btn btn-outline-secondary">Edit tournament</a>
+        </div>
     </div>
   </div>
 </div>
+
