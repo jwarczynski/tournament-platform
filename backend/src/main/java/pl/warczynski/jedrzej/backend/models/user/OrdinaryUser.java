@@ -1,4 +1,4 @@
-package pl.warczynski.jedrzej.backend.models;
+package pl.warczynski.jedrzej.backend.models.user;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
