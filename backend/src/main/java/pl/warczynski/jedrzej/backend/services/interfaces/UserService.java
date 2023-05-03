@@ -1,10 +1,10 @@
 package pl.warczynski.jedrzej.backend.services.interfaces;
 
 import org.springframework.http.ResponseEntity;
-import pl.warczynski.jedrzej.backend.dto.RegistrationDto;
-import pl.warczynski.jedrzej.backend.dto.ResetPasswordDto;
-import pl.warczynski.jedrzej.backend.dto.UserLoginDto;
-import pl.warczynski.jedrzej.backend.models.User;
+import pl.warczynski.jedrzej.backend.dto.authentication.RegistrationDto;
+import pl.warczynski.jedrzej.backend.dto.authentication.ResetPasswordDto;
+import pl.warczynski.jedrzej.backend.dto.authentication.UserLoginDto;
+import pl.warczynski.jedrzej.backend.models.user.User;
 
 public interface UserService {
 

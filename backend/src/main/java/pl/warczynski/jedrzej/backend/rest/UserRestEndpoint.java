@@ -5,11 +5,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.warczynski.jedrzej.backend.dto.RegistrationDto;
-import pl.warczynski.jedrzej.backend.dto.ResetPasswordDto;
-import pl.warczynski.jedrzej.backend.dto.UserLoginDto;
-import pl.warczynski.jedrzej.backend.models.User;
-import pl.warczynski.jedrzej.backend.services.interfaces.EmailService;
+import pl.warczynski.jedrzej.backend.dto.authentication.RegistrationDto;
+import pl.warczynski.jedrzej.backend.dto.authentication.ResetPasswordDto;
+import pl.warczynski.jedrzej.backend.dto.authentication.UserLoginDto;
+import pl.warczynski.jedrzej.backend.models.user.User;
 import pl.warczynski.jedrzej.backend.services.interfaces.UserService;
 
 @RestController()

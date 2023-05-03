@@ -3,7 +3,7 @@ package pl.warczynski.jedrzej.backend.dao;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
-import pl.warczynski.jedrzej.backend.models.User;
+import pl.warczynski.jedrzej.backend.models.user.User;
 
 import java.util.Optional;
 
