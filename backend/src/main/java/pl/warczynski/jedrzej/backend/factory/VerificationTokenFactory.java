@@ -1,6 +1,6 @@
 package pl.warczynski.jedrzej.backend.factory;
 
-import pl.warczynski.jedrzej.backend.models.VerificationToken;
+import pl.warczynski.jedrzej.backend.models.user.VerificationToken;
 
 import java.time.LocalDateTime;
 import java.util.Random;
