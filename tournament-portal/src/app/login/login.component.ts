@@ -4,6 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { API_URLS } from "../api-urls";
 import { Router } from "@angular/router";
 import { UserService } from "../common/user.service";
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ export class LoginComponent implements OnInit {
     private http: HttpClient,
     private router: Router,
     private userService: UserService,
+    private location: Location,
   ) { }
 
   ngOnInit(): void {
@@ -38,7 +40,7 @@ export class LoginComponent implements OnInit {
           next: (response) => {
             console.log('Login successful');
             this.userService.setUserEmail(email);
-            this.router.navigate(['/']);
+            this.location.back();
           },
           error: (error) => {
             console.log('Login failed');

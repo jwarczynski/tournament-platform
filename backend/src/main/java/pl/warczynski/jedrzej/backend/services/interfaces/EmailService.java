@@ -1,6 +1,6 @@
 package pl.warczynski.jedrzej.backend.services.interfaces;
 
-import pl.warczynski.jedrzej.backend.dto.RegistrationDto;
+import pl.warczynski.jedrzej.backend.dto.authentication.RegistrationDto;
 
 public interface EmailService {
   String PORTAL_EMAIL = "your.tournament.portal@gmail.com";

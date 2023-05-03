@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import pl.warczynski.jedrzej.backend.dto.RegistrationDto;
+import pl.warczynski.jedrzej.backend.dto.authentication.RegistrationDto;
 import pl.warczynski.jedrzej.backend.services.interfaces.EmailService;
 import org.springframework.mail.SimpleMailMessage;
 
