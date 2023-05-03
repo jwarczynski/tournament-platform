@@ -1,46 +1,110 @@
-<div class="container mt-4">
+<div *ngIf="!tournamentCreated" class="container mt-4">
   <h2 class="mb-4">Create Tournament</h2>
   <form [formGroup]="tournamentForm" (ngSubmit)="onSubmit()">
-    <div class="mb-3">
-      <label for="title" class="form-label">Title</label>
-      <input type="text" class="form-control" id="title" formControlName="title">
+    <div class="row row-cols-4 mb-3">
+      <div class="col-3 me-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="title" formControlName="title">
+        <div *ngIf="tournamentForm.get('title')?.invalid && (tournamentForm.get('title')?.dirty || tournamentForm.get('title')?.touched)" class="text-danger mt-1">
+          <div *ngIf="tournamentForm.get('title')?.errors?.['required']" class="small">Title is required.</div>
+        </div>
+      </div>
+      <div class="col-3 me-3">
+        <label for="discipline" class="form-label">Discipline</label>
+        <input type="text" class="form-control" id="discipline" formControlName="discipline">
+        <div *ngIf="tournamentForm.get('discipline')?.invalid && (tournamentForm.get('discipline')?.dirty || tournamentForm.get('discipline')?.touched)" class="text-danger mt-1">
+          <div *ngIf="tournamentForm.get('discipline')?.errors?.['required']" class="small">Discipline is required.</div>
+        </div>
+      </div>
+      <div class="col-3 me-3">
+        <label for="location" class="form-label">Location</label>
+        <input type="text" class="form-control" id="location" formControlName="location">
+        <div *ngIf="tournamentForm.get('location')?.invalid && (tournamentForm.get('location')?.dirty || tournamentForm.get('location')?.touched)" class="text-danger mt-1">
+          <div *ngIf="tournamentForm.get('location')?.errors?.['required']" class="small">Location is required.</div>
+        </div>
+      </div>
+      <div class="col-3">
+        <label for="entryLimit" class="form-label">Entry Limit</label>
+        <input type="number" class="form-control" id="entryLimit" formControlName="entryLimit">
+        <div *ngIf="tournamentForm.get('entryLimit')?.invalid && (tournamentForm.get('entryLimit')?.dirty || tournamentForm.get('entryLimit')?.touched)" class="text-danger mt-1">
+          <div *ngIf="tournamentForm.get('entryLimit')?.errors?.['required']" class="small">Entry limit is required.</div>
+          <div *ngIf="tournamentForm.get('entryLimit')?.errors?.['min']" class="small">Entry limit cannot be negative.</div>
+        </div>
+      </div>
+      <div class="me-3">
+        <label for="seedPlayers" class="form-label">Seed Players</label>
+        <input type="number" class="form-control" id="seedPlayers" formControlName="seedPlayers">
+        <div *ngIf="tournamentForm.get('seedPlayers')?.invalid && (tournamentForm.get('seedPlayers')?.dirty || tournamentForm.get('seedPlayers')?.touched)" class="text-danger mt-1" >
+          <div *ngIf="tournamentForm.get('seedPlayers')?.errors?.['required']" class="small">Seed players are required.</div>
+          <div *ngIf="tournamentForm.get('seedPlayers')?.errors?.['min']" class="small">Number of seed players can not be negative</div>
+        </div>
+        <div *ngIf="tournamentForm.errors?.['invalidSeedPlayers']" class="text-danger mt-1 small">Number of seed players can not be greater than entry limit</div>
+      </div>
+
     </div>
-    <div class="mb-3">
-      <label for="discipline" class="form-label">Discipline</label>
-      <input type="text" class="form-control" id="discipline" formControlName="discipline">
+
+    <div class="mb-3 d-flex">
+      <div class="me-3">
+        <label for="entryDeadline" class="form-label">Entry Deadline</label>
+        <input type="date" class="form-control" id="entryDeadline" formControlName="entryDeadline">
+        <div *ngIf="tournamentForm.get('entryDeadline')?.invalid && (tournamentForm.get('entryDeadline')?.dirty || tournamentForm.get('entryDeadline')?.touched)" class="text-danger mt-1" >
+         <div *ngIf="tournamentForm.get('entryDeadline')?.errors?.['required']" class="small">Entry deadline is required.</div>
+        </div>
+      </div>
+      <div>
+        <label for="tournamentDate" class="form-label">Tournament Date</label>
+        <input type="date" class="form-control" id="tournamentDate" formControlName="tournamentDate">
+        <div *ngIf="tournamentForm.errors?.['invalidDate']" class="text-danger mt-1 small">Tournament date must be after entry deadline.</div>
+        <div *ngIf="tournamentForm.get('tournamentDate')?.invalid && (tournamentForm.get('tournamentDate')?.dirty || tournamentForm.get('tournamentDate')?.touched)" class="text-danger mt-1" >
+          <div *ngIf="tournamentForm.get('tournamentDate')?.errors?.['required']" class="small">Tournament date is required.</div>
+        </div>
+      </div>
     </div>
-    <div class="mb-3">
-      <label for="entryDeadline" class="form-label">Entry Deadline</label>
-      <input type="date" class="form-control" id="entryDeadline" formControlName="entryDeadline">
-    </div>
-    <div class="mb-3">
-      <label for="entryLimit" class="form-label">Entry Limit</label>
-      <input type="number" class="form-control" id="entryLimit" formControlName="entryLimit">
-    </div>
-    <div class="mb-3">
+    <div class="mb-3 col-9">
       <label for="description" class="form-label">Description</label>
       <textarea class="form-control" id="description" formControlName="description"></textarea>
     </div>
-    <div class="mb-3">
-      <label for="location" class="form-label">Location</label>
-      <input type="text" class="form-control" id="location" formControlName="location">
+    <div class="mb-3 d-flex">
+      <div class="me-3">
+        <label for="sponsorLogos" class="form-label">Sponsor Logos</label>
+        <input type="file" class="form-control" id="sponsorLogos" formControlName="sponsorLogos" multiple (change)="uploadSponsorsFile($event)">
+        <div *ngIf="tournamentForm.get('sponsorLogos')?.invalid && (tournamentForm.get('sponsorLogos')?.dirty || tournamentForm.get('sponsorLogos')?.touched)" class="text-danger mt-1">
+          <div *ngIf="tournamentForm.errors?.['tooManySponsorLogos']" class="text-danger mt-1 small">Number of sponsor images exceed number 5</div>
+          <div *ngIf="tournamentForm.errors?.['invalidSponsorLogosType']" class="text-danger mt-1 small">Only png and jpg files are allowed</div>
+          <div *ngIf="tournamentForm.errors?.['invalidSponsorLogosType']" class="text-danger mt-1 small">Only png and jpg files are allowed</div>
+        </div>
+      </div>
+      <div>
+        <label for="mainImage" class="form-label">Main Image</label>
+        <input type="file" class="form-control" id="mainImage" formControlName="mainImage" (change)="uploadMainImage($event)">
+        <div *ngIf= "mainImageTypeError" class="text-danger mt-1 small">Only png and jpg files are allowed allowed </div>
+        <div *ngIf="tournamentForm.get('mainImage')?.invalid && (tournamentForm.get('mainImage')?.dirty || tournamentForm.get('mainImage')?.touched)" class="text-danger mt-1">
+          <div *ngIf="tournamentForm.errors?.['tooManyMainImages']" class="text-danger mt-1 small">Only one main image is allowed</div>
+        </div>
+      </div>
     </div>
-    <div class="mb-3">
-      <label for="tournamentDate" class="form-label">Tournament Date</label>
-      <input type="date" class="form-control" id="tournamentDate" formControlName="tournamentDate">
-    </div>
-    <div class="mb-3">
-      <label for="sponsorLogos" class="form-label">Sponsor Logos</label>
-      <input type="file" class="form-control" id="sponsorLogos" formControlName="sponsorLogos" multiple>
-    </div>
-    <div class="mb-3">
-      <label for="mainImage" class="form-label">Main Image</label>
-      <input type="file" class="form-control" id="mainImage" formControlName="mainImage">
-    </div>
-    <button type="button" class="btn btn-primary" [disabled]="!tournamentForm.get('location')?.value" (click)="showMap = !showMap">{{ showMap ? 'Hide Map' : 'Show Map' }}</button>
+
+    <button type="button" class="btn btn-primary" [disabled]="!tournamentForm.get('location').value" (click)="showMap = !showMap">{{ showMap ? 'Hide Map' : 'Show Map' }}</button>
     <div *ngIf="showMap && tournamentForm.get('location')?.value">
-      <app-google-map [address]="tournamentForm.get('location')?.value"></app-google-map>
+      <app-google-map [address]="tournamentForm.get('location').value"></app-google-map>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" [disabled]="sponsorsTypeError || mainImageTypeError || !tournamentForm.valid" class="btn btn-primary">Submit</button>
   </form>
 </div>
+
+<!-- Add this inside your form tag -->
+<!--<div [hidden]="!tournamentCreated">-->
+<!--  <div class="row justify-content-center">-->
+<!--    <div class="col-6">-->
+<!--      <div class="card shadow-sm">-->
+<!--        <img src="assets/images/sponsor1.png" class="card-img-top" alt="tournament thumbnail">-->
+<!--        <div class="card-body text-center">-->
+<!--          <h5 class="card-title">Tournament Created!</h5>-->
+<!--          <p class="card-text">Congratulations, your tournament has been created.</p>-->
+<!--          <a href="#" class="btn btn-primary">Go to tournament</a>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+<app-tournament *ngIf="tournamentCreated" [tournament]="createdTournament"></app-tournament>
