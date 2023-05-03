@@ -7,11 +7,11 @@ import { RegistrationComponent } from './registration/registration.component';
 import {
   FormsModule,
   ReactiveFormsModule,
-} from "@angular/forms";
+} from '@angular/forms';
 import { NavbarComponent } from './navbar/navbar.component';
-import {RouterModule} from "@angular/router";
+import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { ForgotPasswordComponent } from './forget-password/forget-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
@@ -50,4 +50,5 @@ import { LocationSearchComponent } from './location-search/location-search.compo
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
