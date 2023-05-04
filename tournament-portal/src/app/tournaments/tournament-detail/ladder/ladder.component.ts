@@ -74,7 +74,7 @@ export class LadderComponent {
     let winner: Player = this.getPlayer(phase, duelNumber, 'winner');
     return {
       players: [player1, player2],
-      result: winner?.email === "" ? -1 : winner?.email === player1.email  ? 0 : 1
+      result: winner?.email === "" || winner === null ? -1 : winner?.email === player1.email  ? 0 : 1
     };
   }
 
