@@ -22,7 +22,7 @@ export class LadderComponent {
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id')!;
-    this.duelService.getDuels(id).subscribe({
+    this.duelService.getDuelsByTournamentId(id).subscribe({
       next: (duels: Duel[]) => {
         console.log('retrieved duels:', duels);
         this.duels = duels
@@ -74,7 +74,7 @@ export class LadderComponent {
     let winner: Player = this.getPlayer(phase, duelNumber, 'winner');
     return {
       players: [player1, player2],
-      result: winner?.email === player1?.email ? 0 : 1
+      result: winner?.email === "" ? -1 : winner?.email === player1.email  ? 0 : 1
     };
   }
 

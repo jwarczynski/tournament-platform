@@ -25,8 +25,6 @@ v
 F.idea/libraries/Maven__org_springframework_spring_expression_6_0_7.xml,1\0\10402af1a480a0db1c7c4ba1e8246da0c88b5551
 o
 ?.idea/libraries/Maven__org_springframework_spring_jcl_6_0_7.xml,6\8\688e92cd308d2d3aca9d8b0866d718cab04487e7
-{
-K.idea/libraries/Maven__org_springframework_spring_context_support_6_0_7.xml,2\9\29de199b099778227620fc99647eb046b9610817
 p
 @.idea/libraries/Maven__org_springframework_spring_core_6_0_7.xml,f\b\fbe57106f25a1e0c1b96801b4bc3da039adeeb8e
 \
@@ -155,8 +153,6 @@ o
 ?.idea/libraries/Maven__org_springframework_spring_web_6_0_7.xml,3\a\3a2312bc3dc9673f4ebcc95b66d1ec4726be693a
 €
 P.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_14_2.xml,0\d\0dd157f98196f73fe68f14d5a4ceb0e0d331214c
-n
->.idea/libraries/Maven__org_springframework_spring_tx_6_0_7.xml,2\f\2f33a241668ea0aec46586c26f08d3bec9bb3874
 }
 M.idea/libraries/Maven__org_springframework_data_spring_data_commons_3_0_4.xml,2\8\284a00fac62d7f5ee6ac568848c76ea66f9ea526
 a
@@ -217,8 +213,6 @@ v
 Ftournament-portal/src/app/location-search/location-search.component.ts,d\0\d0bef5e7c4111eba4ed352bb866dc080a05c4e2a
 d
 4tournament-portal/src/app/login/login.component.html,3\c\3c16f038263127bf94e6f80f1255bd8cc84ea4cb
-|
-Lbackend/src/main/java/pl/warczynski/jedrzej/backend/models/OrdinaryUser.java,2\b\2bbad675971274e693a636f4db6cd9312f75d925
 r
 Btournament-portal/src/app/registration/registration.component.html,2\3\235ce3db6630fab4ac8d14f32a980665059d4f31
 p
@@ -226,16 +220,8 @@ p
 v
 Ftournament-portal/src/app/reset-password/reset-password.component.html,6\c\6ca4a306126f579bf7f1014b5063d703ebd31f83
 }
-Mbackend/src/main/java/pl/warczynski/jedrzej/backend/dto/ResetPasswordDto.java,7\0\70691b70fd5b38e41c64040079bf5c65d566a764
-}
 Mtournament-portal/src/app/tournaments/tournament/tournament.component.spec.ts,e\8\e8272b6070d0d3d85c1b93bd091e1c7290c99e13
-t
-Dbackend/src/main/java/pl/warczynski/jedrzej/backend/models/User.java,7\a\7a37c3d63ad67eba6720f7e0fa061d4132b0139e
 e
 5tournament-portal/src/app/common/user.service.spec.ts,c\f\cfe4857e1c08247674ff20021bf0ac0b09ffbab7
-y
-Ibackend/src/main/java/pl/warczynski/jedrzej/backend/dto/UserLoginDto.java,7\4\74f255dfb2cc39dd849a9089463c138f26dbfc81
 Š
 Zbackend/src/test/java/pl/warczynski/jedrzej/backend/services/impl/UserServiceImplTest.java,6\2\626318a9984898f273becef207331ab6e28895eb
-n
->tournament-portal/src/app/tournaments/tournaments.component.ts,d\b\db89e90cc30393efb6292fbf17c68d0b86a2bc0e

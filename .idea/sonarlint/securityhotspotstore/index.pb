@@ -25,8 +25,6 @@ v
 F.idea/libraries/Maven__org_springframework_spring_expression_6_0_7.xml,1\0\10402af1a480a0db1c7c4ba1e8246da0c88b5551
 o
 ?.idea/libraries/Maven__org_springframework_spring_jcl_6_0_7.xml,6\8\688e92cd308d2d3aca9d8b0866d718cab04487e7
-{
-K.idea/libraries/Maven__org_springframework_spring_context_support_6_0_7.xml,2\9\29de199b099778227620fc99647eb046b9610817
 p
 @.idea/libraries/Maven__org_springframework_spring_core_6_0_7.xml,f\b\fbe57106f25a1e0c1b96801b4bc3da039adeeb8e
 \
@@ -163,8 +161,6 @@ o
 ?.idea/libraries/Maven__org_springframework_spring_web_6_0_7.xml,3\a\3a2312bc3dc9673f4ebcc95b66d1ec4726be693a
 €
 P.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_14_2.xml,0\d\0dd157f98196f73fe68f14d5a4ceb0e0d331214c
-n
->.idea/libraries/Maven__org_springframework_spring_tx_6_0_7.xml,2\f\2f33a241668ea0aec46586c26f08d3bec9bb3874
 }
 M.idea/libraries/Maven__org_springframework_data_spring_data_commons_3_0_4.xml,2\8\284a00fac62d7f5ee6ac568848c76ea66f9ea526
 a
@@ -193,18 +189,10 @@ p
 Mtournament-portal/src/app/tournaments/tournament/tournament.component.spec.ts,e\8\e8272b6070d0d3d85c1b93bd091e1c7290c99e13
 z
 Jtournament-portal/src/app/tournaments/tournament/tournament.component.scss,6\e\6e8f8475a408b016781b6982a4d90a6eb3435d52
-y
-Ibackend/src/main/java/pl/warczynski/jedrzej/backend/dto/UserLoginDto.java,7\4\74f255dfb2cc39dd849a9089463c138f26dbfc81
-|
-Lbackend/src/main/java/pl/warczynski/jedrzej/backend/models/OrdinaryUser.java,2\b\2bbad675971274e693a636f4db6cd9312f75d925
 d
 4tournament-portal/src/app/login/login.component.scss,3\a\3aad3af35b6eaac0135befa84e43cccd222891d2
 d
 4tournament-portal/src/app/login/login.component.html,3\c\3c16f038263127bf94e6f80f1255bd8cc84ea4cb
-}
-Mbackend/src/main/java/pl/warczynski/jedrzej/backend/dto/ResetPasswordDto.java,7\0\70691b70fd5b38e41c64040079bf5c65d566a764
-t
-Dbackend/src/main/java/pl/warczynski/jedrzej/backend/models/User.java,7\a\7a37c3d63ad67eba6720f7e0fa061d4132b0139e
 ˆ
 Xtournament-portal/src/app/tournaments/tournament-detail/tournament-detail.component.scss,2\1\2148637d473a1e2c5d8d64d97974fdc432d339a4
 e
@@ -237,5 +225,3 @@ v
 Ftournament-portal/src/app/forget-password/forget-password.component.ts,3\e\3e33e7d1d777c149abcd9dbd05faef451a6b5d81
 v
 Ftournament-portal/src/app/location-search/location-search.component.ts,d\0\d0bef5e7c4111eba4ed352bb866dc080a05c4e2a
-n
->tournament-portal/src/app/tournaments/tournaments.component.ts,d\b\db89e90cc30393efb6292fbf17c68d0b86a2bc0e
