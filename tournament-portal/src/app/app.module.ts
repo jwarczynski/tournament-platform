@@ -25,6 +25,9 @@ import { TournamentSignUpComponent } from './tournaments/tournament-sign-up/tour
 import { LadderComponent } from './tournaments/tournament-detail/ladder/ladder.component';
 import { AdnSingleEliminationTreeModule } from '@adonsio/adn-tournament';
 import { BracketComponent } from './tournaments/tournament-detail/ladder/bracket/bracket.component';
+import { UserDuelsComponent } from './user-duels/user-duels.component';
+import { EditTournamentComponent } from './tournaments/tournament-creation/edit-tournament/edit-tournament.component';
+import { SearchTournamentsService } from './common/search-tournaments.service';
 
 
 @NgModule({
@@ -43,7 +46,9 @@ import { BracketComponent } from './tournaments/tournament-detail/ladder/bracket
     LocationSearchComponent,
     TournamentSignUpComponent,
     LadderComponent,
-    BracketComponent
+    BracketComponent,
+    UserDuelsComponent,
+    EditTournamentComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,7 +60,7 @@ import { BracketComponent } from './tournaments/tournament-detail/ladder/bracket
     HttpClientModule,
     AdnSingleEliminationTreeModule,
   ],
-  providers: [],
+  providers: [SearchTournamentsService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
