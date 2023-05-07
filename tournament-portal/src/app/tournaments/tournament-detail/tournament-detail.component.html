@@ -15,8 +15,8 @@
           <p><strong>Entry Deadline:</strong> {{tournament.registrationDeadline | date}}</p>
           <p><strong>Sponsors:</strong></p>
           <div class="d-flex">
-            <div class="p-2" *ngFor="let sponsor of tournament.sponsors">
-              <img src="{{sponsor}}" alt="sponsor logo" height="50">
+            <div class="p-2" *ngFor="let sponsor of sponsorImagesToShow">
+              <img [src]="sponsor" alt="sponsor logo" height="50">
             </div>
           </div>
         </div>
@@ -25,16 +25,20 @@
   </div>
   <div class="row justify-content-center">
     <div class="col-md-6">
-        <div class="mt-4 d-flex justify-content-center">
+<!--      TODO: change after tests-->
+<!--        <div *ngIf="!isOrganizer && canRegister()" class="mt-4 d-flex justify-content-center">-->
+<!--        <div *ngIf="tournament.registrationDeadline >= today" class="mt-4 d-flex justify-content-center">-->
+        <div *ngIf="canRegister()" class="mt-4 d-flex justify-content-center">
           <a [routerLink]="['/tournament-sign-up', tournament._id]" class="btn btn-primary">Register</a>
         </div>
-        <div class="mt-4 d-flex justify-content-center">
+        <div *ngIf="!canRegister()" class="mt-4 d-flex justify-content-center">
           <a [routerLink]="['/ladder', tournament._id]" class="btn btn-primary">See ladder</a>
         </div>
-
-        <div *ngIf="!isOrganizer" class="mt-4 mt-auto">
-          <a routerLink="/edit-tournament/{{tournament._id}}" *ngIf="isOrganizer" class="btn btn-outline-secondary">Edit tournament</a>
-        </div>
+<!--      TODO: change after tests-->
+<!--        <div *ngIf="isOrganizer" class="mt-4 d-flex justify-content-center">-->
+      <div class="mt-4 d-flex justify-content-center">
+        <a (click)="editTournament()" class="btn btn-primary">Edit tournament</a>
+      </div>
     </div>
   </div>
 </div>
