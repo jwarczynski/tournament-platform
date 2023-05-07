@@ -58,14 +58,14 @@ export class TournamentService {
   ];
 
   getTournaments(): Observable<Tournament[]> {
-    return of(this.tournaments);
-    //   return this.http.get<Tournament[]>(API_URLS.tournaments);
+    // return of(this.tournaments);
+      return this.http.get<Tournament[]>(API_URLS.tournaments);
   }
 
   getTournament(id: string): Observable<Tournament> {
-    const tournament = this.tournaments.find(t => t._id === id);
-    return of(tournament!);
-    // return this.http.get<Tournament>(`${API_URLS.tournaments}/${id}`);
+    // const tournament = this.tournaments.find(t => t._id === id);
+    // return of(tournament!);
+    return this.http.get<Tournament>(`${API_URLS.tournaments}/${id}`);
   }
 
   saveTournament(tournament: Tournament) {
