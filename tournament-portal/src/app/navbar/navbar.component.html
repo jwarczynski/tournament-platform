@@ -7,16 +7,19 @@
     <div [ngClass]="{'collapse': isCollapsed, 'navbar-collapse': true}">
       <ul class="navbar-nav me-auto">
         <li class="nav-item" *ngIf="!userService.isLoggedIn()">
-          <a class="nav-link" [routerLink]="['/login']">Log in</a>
+          <a class="nav-link" [routerLink]="['/login']" (click)="isCollapsed=true">Log in</a>
         </li>
         <li class="nav-item" *ngIf="!userService.isLoggedIn()">
-          <a class="nav-link" [routerLink]="['/registration']">Register</a>
+          <a class="nav-link" [routerLink]="['/registration']" (click)="isCollapsed=true">Register</a>
         </li>
         <li class="nav-item" *ngIf="userService.isLoggedIn()">
-          <a class="nav-link" (click)="logout()">Log out</a>
+          <a class="nav-link" (click)="logout();isCollapsed=true">Log out</a>
         </li>
         <li class="nav-item" *ngIf="userService.isLoggedIn()">
-          <a class="nav-link" [routerLink]="['/tournament-creation']">Organize Tournament</a>
+          <a class="nav-link" [routerLink]="['/duels']" (click)="isCollapsed=true">My Duels</a>
+        </li>
+        <li class="nav-item" *ngIf="userService.isLoggedIn()">
+          <a class="nav-link" [routerLink]="['/tournament-creation']" (click)="isCollapsed=true">Organize Tournament</a>
         </li>
       </ul>
       <div class="d-flex" *ngIf="isHomePage()">
