@@ -1,12 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {HttpClient} from "@angular/common/http";
-import {Router} from "@angular/router";
-import {UserService} from "../../common/user.service";
-import {TournamentService} from "../tournament.service";
-import { Location } from '@angular/common';
-import {Tournament} from "../tournament.model";
-
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from '../../common/user.service';
+import { TournamentService } from '../tournament.service';
+import { Tournament } from '../tournament.model';
 
 
 @Component({
@@ -15,7 +13,10 @@ import {Tournament} from "../tournament.model";
   styleUrls: ['./tournament-creation.component.scss']
 })
 export class TournamentCreationComponent implements OnInit {
+  @Input() savedTournament: Tournament;
+
   tournamentForm!: FormGroup;
+
   errorMessage: string | null = null;
   showMap = false;
   mainImage: any;
@@ -24,6 +25,7 @@ export class TournamentCreationComponent implements OnInit {
   mainImageTypeError = false;
   sponsorsTypeError = false;
   tournamentCreated = false;
+  editing: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -31,11 +33,39 @@ export class TournamentCreationComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private tournamentService: TournamentService,
-    private location: Location,
+    private route: ActivatedRoute,
   ) {
   }
 
   ngOnInit(): void {
+    this.initializeForm();
+    this.populateInputsIfEditing();
+  }
+
+  populateInputsIfEditing() {
+    if (this.savedTournament) {
+      this.editing = true;
+      this.populateInputs();
+    } else if (this.route.snapshot.url.some(segment => segment.path === 'edit-tournament')) {
+      this.editing = true;
+      this.getTournamentAndPopulateInputs();
+    }
+  }
+
+  getTournamentAndPopulateInputs() {
+    let tournamentId = this.route.snapshot.paramMap.get('id');
+    this.tournamentService.getTournament(tournamentId).subscribe({
+      next: (tournament: Tournament) => {
+        this.savedTournament = tournament;
+        this.populateInputs();
+      },
+      error(response: HttpErrorResponse) {
+        console.log('Failed to retrieve tournament data to modify');
+      },
+    });
+  }
+
+  initializeForm() {
     this.tournamentForm = this.fb.group({
       title: ['', [Validators.required]],
       discipline: ['', [Validators.required]],
@@ -52,13 +82,37 @@ export class TournamentCreationComponent implements OnInit {
     });
   }
 
+  populateInputs() {
+    const tournament = this.savedTournament;
+    this.tournamentForm.patchValue({
+      title: tournament.name,
+      discipline: tournament.discipline,
+      entryDeadline: tournament.registrationDeadline,
+      entryLimit: tournament.registrationLimit,
+      seedPlayers: tournament.seedPlayers,
+      description: tournament.description,
+      location: tournament.location,
+      sponsorLogos: tournament.sponsors,
+      tournamentDate: tournament.date,
+      mainImage: tournament.mainImage
+    });
+    this.tournamentForm.patchValue({
+      discipline: this.savedTournament.discipline
+    })
+  }
+
+  isTournamentEditing(): boolean {
+    console.log('tournamentEditing:', this.savedTournament !== null)
+    return this.savedTournament !== null;
+  }
+
   dateValidator(control: FormGroup): { [key: string]: boolean } | null {
     const entryDeadline = control.get('entryDeadline')?.value;
     const tournamentDate = control.get('tournamentDate')?.value;
 
     if (entryDeadline && tournamentDate && entryDeadline > tournamentDate) {
-      console.log("invalid date");
-      return { 'invalidDate': true };
+      console.log('invalid date');
+      return {'invalidDate': true};
     }
 
     return null;
@@ -69,8 +123,8 @@ export class TournamentCreationComponent implements OnInit {
     const seedPlayers = control.get('seedPlayers')?.value;
 
     if (seedPlayers && entryLimit && seedPlayers > entryLimit) {
-      console.log("invalid seed players");
-      return { 'invalidSeedPlayers': true };
+      console.log('invalid seed players');
+      return {'invalidSeedPlayers': true};
     }
 
     return null;
@@ -79,10 +133,10 @@ export class TournamentCreationComponent implements OnInit {
   mainImageValidator(control: FormGroup): { [key: string]: boolean } | null {
     const mainImage = control.get('mainImage')?.value;
     if (!mainImage || mainImage.length === 0) {
-      return { 'noMainImage': true };
+      return {'noMainImage': true};
     }
     if (Array.isArray(mainImage) && mainImage.length > 1) {
-      return { 'tooManyMainImages': true };
+      return {'tooManyMainImages': true};
     }
     return null;
   }
@@ -93,7 +147,7 @@ export class TournamentCreationComponent implements OnInit {
       return null;
     }
     if (sponsorLogos.length > 5) {
-      return { 'tooManySponsorLogos': true };
+      return {'tooManySponsorLogos': true};
     }
     return null;
   }
@@ -127,7 +181,7 @@ export class TournamentCreationComponent implements OnInit {
 
   onSubmit() {
     if (this.tournamentForm.valid) {
-      const formData:FormData = this.createFormData()
+      const formData: FormData = this.createFormData()
       this.tournamentService.createTournament(formData).subscribe({
         next: (tournament: Tournament) => {
           console.log('Tournament created successfully!', tournament);
