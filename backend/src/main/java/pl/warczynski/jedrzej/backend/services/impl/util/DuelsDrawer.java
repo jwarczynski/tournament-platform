@@ -83,9 +83,9 @@ public class DuelsDrawer {
 
     private void drawOrdinarySeedDuel(int topNPlayer, int duelNum) {
         Player player1 = players.get(topNPlayer);
-        player1.setPlayerStatus(PlayerStatus.PENDING_DUEL);
+        player1.setPlayerStatus(PlayerStatus.DURING_GAMEPLAY);
         Player player2 = players.get(players.size() - topNPlayer - 1 + emptyPlayers);
-        player2.setPlayerStatus(PlayerStatus.PENDING_DUEL);
+        player2.setPlayerStatus(PlayerStatus.DURING_GAMEPLAY);
         duels.add(new Duel(tournamentId, player1, player2,
                 DuelStatus.NOT_PLAYED, 1, duelNum));
     }
@@ -110,10 +110,10 @@ public class DuelsDrawer {
 
     private void drawUnseededOrdinaryDuel(int duelNum) {
         Player player1 = drawUnpairedPlayer();
-        player1.setPlayerStatus(PlayerStatus.PENDING_DUEL);
+        player1.setPlayerStatus(PlayerStatus.DURING_GAMEPLAY);
         Player player2 = drawOpponent(player1);
-        player2.setPlayerStatus(PlayerStatus.PENDING_DUEL);
-        duels.add(new Duel(tournamentId, player1, player2,
+        player2.setPlayerStatus(PlayerStatus.DURING_GAMEPLAY);
+        duels.add(new Duel(tournamentId, player1, player2, Player.createEmptyPlayer(),
                 DuelStatus.NOT_PLAYED, 1, duelNum));
     }
 
@@ -153,11 +153,39 @@ public class DuelsDrawer {
 
     private void drawNextPhases() {
         for (int phase = 2; phase <= phasesNum; phase++) {
-            for (int duelNum = 0; duelNum < duelsNum / Math.pow(2, phase - 1) ; duelNum += 1) {
-                duels.add(new Duel(tournamentId, Player.createEmptyPlayer(),
-                        Player.createEmptyPlayer(), Player.createEmptyPlayer(),
-                        DuelStatus.NOT_PLAYED ,phase, duelNum));
+            for (int duelNum = 0; duelNum < duelsNum / Math.pow(2, (double) phase - 1) ; duelNum += 1) {
+                addDuel(phase, duelNum);
             }
         }
+    }
+
+    private void addDuel(Integer phase, Integer duelNum) {
+        if (phase == 2) {
+            includeFirstPhaseWinners(duelNum);
+        } else {
+            addTemplateDuel(phase, duelNum);
+        }
+    }
+
+    private void includeFirstPhaseWinners(Integer duelNum) {
+        Player player1 = getWinner(1, duelNum * 2);
+        Player player2 = getWinner(1 , duelNum * 2 + 1);
+
+        duels.add(new Duel(tournamentId, player1,
+                player2, Player.createEmptyPlayer(),
+                DuelStatus.NOT_PLAYED ,2, duelNum));
+    }
+    private Player getWinner(Integer phase, Integer duelNumber) {
+        Optional<Player> winner = duels.stream()
+                .filter(duel -> Objects.equals(duel.getPhase(), phase) && Objects.equals(duel.getDuelNumber(), duelNumber))
+                .map(Duel::getWinner)
+                .findFirst();
+        return winner.orElseThrow(() -> new IllegalStateException("NO PREVIOUS WINNER"));
+    }
+
+    private void addTemplateDuel(Integer phase, Integer duelNum) {
+        duels.add(new Duel(tournamentId, Player.createEmptyPlayer(),
+                Player.createEmptyPlayer(), Player.createEmptyPlayer(),
+                DuelStatus.NOT_PLAYED ,phase, duelNum));
     }
 }

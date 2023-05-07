@@ -5,7 +5,8 @@ import pl.warczynski.jedrzej.backend.models.tournament.duel.Duel;
 import java.util.List;
 
 public interface DuelService {
-    public void saveDuels(List<Duel> duels);
-
-    public List<Duel> getTournamentDuels(String tournamentId);
+    void saveDuels(List<Duel> duels);
+    Duel updateResult(Duel duel, String applicantEmail);
+    List<Duel> getTournamentDuels(String tournamentId);
+    List<Duel> getUserDuels(String email);
 }

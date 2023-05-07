@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Your duels</h2>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th class="text-light">Tournament</th>
+          <th class="text-light">Player 1</th>
+          <th class="text-light">Player 2</th>
+          <th class="text-light">Winner</th>
+        </thead>
+        <tbody>
+        <ng-container *ngFor="let duel of duels">
+          <tr>
+            <td class="text-light">{{tournamentNames[duel.tournamentId]}}</td>
+            <td class="text-light">{{ duel.player1.email }}</td>
+            <td class="text-light">{{ duel.player2.email }}</td>
+            <td class="text-light">
+              <ng-container *ngIf="canResultBeChanged(duel)">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="{{duel.id}}" id="flexRadioDefault1" (change)="updateWinner(duel, duel.player1)">
+                  <label class="form-check-label" for="flexRadioDefault1">
+                    {{ duel.player1.email }}
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="{{duel.id}}" id="flexRadioDefault2" (change)="updateWinner(duel, duel.player2)">
+                  <label class="form-check-label" for="flexRadioDefault2">
+                    {{ duel.player2.email }}
+                  </label>
+                </div>
+                <button class="btn btn-primary" (click)="updateDuel(duel)">Save</button>
+              </ng-container>
+              <ng-container *ngIf="duel.duelStatus === 'APPROVED'">
+                {{ duel.winner.email }}
+              </ng-container>
+              <ng-container *ngIf="inconsistentResults && duel.id === inconsistentDuelId">
+                <p class="text-danger">{{ inconsistentResults }}</p>
+              </ng-container>
+            </td>
+          </tr>
+        </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
