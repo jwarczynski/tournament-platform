@@ -19,10 +19,10 @@
           <a class="nav-link" [routerLink]="['/tournament-creation']">Organize Tournament</a>
         </li>
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+      <div class="d-flex" *ngIf="isHomePage()">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="searchTerm" (ngModelChange)="onSearchTermChange($event)">
+        <button class="btn btn-outline-success" type="button" (click)="search()">Search</button>
+      </div>
     </div>
   </div>
 </nav>
