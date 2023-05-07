@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import {HttpClient} from "@angular/common/http";
 import {API_URLS} from "../api-urls";
 
@@ -25,8 +25,20 @@ export class RegistrationComponent implements OnInit {
       surname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
-      repeatPassword: ['', Validators.required]
-    });
+      repeatPassword: ['', [Validators.required]]
+    }, {validator: this.passwordMatchValidator('password', 'repeatPassword')});
+  }
+
+  passwordMatchValidator(controlName: string, matchingControlName: string): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const controlValue = control.get(controlName)?.value;
+      const matchingControlValue = control.get(matchingControlName)?.value;
+
+      if (controlValue !== matchingControlValue) {
+        return { 'passwordMismatch': true };
+      }
+      return null;
+    };
   }
 
   onRegister() {
