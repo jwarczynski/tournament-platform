@@ -35,18 +35,30 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       const email = this.loginForm.get('email')?.value;
       const password = this.loginForm.get('password')?.value;
-      this.http.post(API_URLS.login, { email, password })
-        .subscribe({
-          next: (response) => {
-            console.log('Login successful');
-            this.userService.setUserEmail(email);
-            this.location.back();
-          },
-          error: (error) => {
-            console.log('Login failed');
-            this.errorMessage = 'Invalid email or password';
-          }
-        });
+      this.login(email, password);
+    }
+  }
+
+  login(email, password) {
+    this.http.post(API_URLS.login, { email, password })
+      .subscribe({
+        next: (response) => {
+          this.userService.setUserEmail(email);
+          this.redirect();
+        },
+        error: (error) => {
+          console.log('Login failed');
+          this.errorMessage = 'Invalid email or password';
+        }
+      });
+  }
+
+  redirect() {
+    const prevUrl = (this.location.getState() as { navigationId: number })?.navigationId > 1 ? this.location.path(true) : null;
+    if (prevUrl && (prevUrl.includes('tournament-detail/') || prevUrl.includes('tournament-sign-up/'))) {
+      this.location.back();
+    } else {
+      this.router.navigate(['/']);
     }
   }
 }
