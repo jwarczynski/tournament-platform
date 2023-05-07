@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
 import pl.warczynski.jedrzej.backend.dto.tournament.SingUpFormDto;
 import pl.warczynski.jedrzej.backend.dto.tournament.TournamentDto;
@@ -19,6 +18,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -36,10 +36,10 @@ public class TournamentRestEndpoint {
     }
 
     @GetMapping()
-    public ResponseEntity<Void> getTournaments() {
+    public ResponseEntity<List<Tournament>> getTournaments() {
         logger.info("called get on api/tournaments");
-        tournamentService.getAllTournaments();
-        return ResponseEntity.ok().build();
+        List<Tournament> tournaments = tournamentService.getAllTournaments();
+        return ResponseEntity.ok(tournaments);
     }
 
     @GetMapping("/{id}")
