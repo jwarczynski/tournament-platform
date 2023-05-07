@@ -1,12 +1,12 @@
 <div class="row justify-content-center">
   <div class="col-md-10 col-lg-4 mb-4">
     <div class="card h-100">
-<!--      <img src="assets/images/sponsor1.png" class="card-img-top" alt="...">-->
       <img [src]="imageToShow"
            alt="Place image title"
            class="card-img-top"
            *ngIf="!isImageLoading; else noImageFound">
       <ng-template #noImageFound>
+<!--        TODO: change fallback image-->
         <img src="fallbackImage.png" alt="Fallbackimage">
       </ng-template>
       <div class="card-body">
