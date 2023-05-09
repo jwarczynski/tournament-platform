@@ -217,6 +217,9 @@ export class TournamentCreationComponent implements OnInit {
     formData.append('seedPlayers', seedPlayers);
     formData.append('description', description);
     formData.append('location', location);
+    if (this.editing) {
+      formData.append('_id', this.savedTournament?._id);
+    }
 
     if (this.mainImage) {
       formData.append('mainImage', this.mainImage);
