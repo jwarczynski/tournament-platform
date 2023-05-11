@@ -28,7 +28,7 @@ export class DuelService {
         duel.duelStatus = 'PENDING_QUORUM';
         break;
       case 'INCONSISTENT':
-        duel.duelStatus = 'APPROVED';
+        duel.duelStatus = 'PENDING_QUORUM';
         break;
       case 'PENDING_QUORUM':
         duel.duelStatus = 'APPROVED';

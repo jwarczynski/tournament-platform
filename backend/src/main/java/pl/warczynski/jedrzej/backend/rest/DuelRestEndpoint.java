@@ -3,6 +3,7 @@ package pl.warczynski.jedrzej.backend.rest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.warczynski.jedrzej.backend.dto.DuelResultDto;
 import pl.warczynski.jedrzej.backend.models.tournament.duel.Duel;
@@ -34,7 +35,7 @@ public class DuelRestEndpoint {
     }
 
     @PostMapping("/save-result")
-    public Duel updateResult(@RequestBody DuelResultDto duelResultDto) {
+    public ResponseEntity<Duel> updateResult(@RequestBody DuelResultDto duelResultDto) {
         return duelService.updateResult(duelResultDto.getDuel(), duelResultDto.getApplicantEmail());
     }
 }

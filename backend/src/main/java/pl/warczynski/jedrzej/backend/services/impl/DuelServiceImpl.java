@@ -3,8 +3,8 @@ package pl.warczynski.jedrzej.backend.services.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import pl.warczynski.jedrzej.backend.Exceptions.InconsistentWinnerException;
 import pl.warczynski.jedrzej.backend.Exceptions.NoNextDuelException;
 import pl.warczynski.jedrzej.backend.dao.DuelDao;
 import pl.warczynski.jedrzej.backend.models.tournament.duel.Duel;
@@ -42,16 +42,17 @@ public class DuelServiceImpl implements DuelService {
     }
 
     @Override
-    public Duel updateResult(Duel duel, String applicantEmail) {
+    public ResponseEntity<Duel> updateResult(Duel duel, String applicantEmail) {
         Duel existingDuel = getDuelById(duel.getId());
-        if (isFirstResultSubmission(duel.getWinner())) {
-            return saveAndWaitForQuorum(duel, applicantEmail);
+        if (isFirstResultSubmission(existingDuel.getWinner())) {
+            Duel updatedDuel =  saveAndWaitForQuorum(duel, applicantEmail);
+            return ResponseEntity.ok(updatedDuel);
         }
         if (!areResultsConsistent(duel, existingDuel)) {
-            updateDuelToInconsistent(existingDuel);
-            throw new InconsistentWinnerException();
+            Duel updatedDuel = updateDuelToInconsistent(existingDuel);
+            return ResponseEntity.badRequest().body(updatedDuel);
         }
-        return saveAndPromoteWinner(duel);
+        return ResponseEntity.ok(saveAndPromoteWinner(duel));
     }
 
     private Duel getDuelById(String duelId) {
@@ -100,12 +101,12 @@ public class DuelServiceImpl implements DuelService {
         return player1.getEmail().equals(player2.getEmail());
     }
 
-    private void updateDuelToInconsistent(Duel duel) {
+    private Duel updateDuelToInconsistent(Duel duel) {
         duel.setDuelStatus(DuelStatus.INCONSISTENT);
         duel.setWinner(Player.createEmptyPlayer());
         duel.getPlayer1().setPlayerStatus(PlayerStatus.DURING_GAMEPLAY);
         duel.getPlayer2().setPlayerStatus(PlayerStatus.DURING_GAMEPLAY);
-        duelDao.save(duel);
+         return duelDao.save(duel);
     }
 
     private Duel saveAndPromoteWinner(Duel duel) {
@@ -148,7 +149,7 @@ public class DuelServiceImpl implements DuelService {
         try {
             Duel nextPhaseDuel = getNextPhaseDuel(duel).orElseThrow(NoNextDuelException::new);
             Integer playerNumberInNextDuel = getPlayerNumberInDuel(duel.getDuelNumber());
-            updatePlayerInNextPhaseDuel(nextPhaseDuel, playerNumberInNextDuel);
+            updatePlayerInNextPhaseDuel(nextPhaseDuel, playerNumberInNextDuel, duel.getWinner());
         } catch (NoNextDuelException nne) {
             logger.debug("Updating final duel");
         }
@@ -176,12 +177,13 @@ public class DuelServiceImpl implements DuelService {
         return duelNumber % 2;
     }
 
-    private void updatePlayerInNextPhaseDuel(Duel duel, Integer playerNumber) {
+    private void updatePlayerInNextPhaseDuel(Duel duel, Integer playerNumber, Player winner) {
         if (playerNumber == 0) {
-            duel.setPlayer1(duel.getWinner());
+            duel.setPlayer1(winner);
         } else {
-            duel.setPlayer2(duel.getWinner());
+            duel.setPlayer2(winner);
         }
+        duelDao.save(duel);
     }
 
 }

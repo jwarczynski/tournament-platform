@@ -74,19 +74,24 @@ export class UserDuelsComponent {
 
   updateDuel(duel: Duel) {
     this.duelService.updateDuel(duel, this.userEmail).subscribe({
-      next: (duel) => {
+      next: (returnedDuel) => {
         this.inconsistentResults = null;
-        console.log('updated duel', duel);
+        const index = this.duels.findIndex(d => d.id === returnedDuel.id);
+        if (index !== -1) {
+          this.duels[index] = returnedDuel;
+        }
+        console.log('updated duel', returnedDuel);
       },
+
       error: (response: HttpErrorResponse) => {
-        if (response.error.message === 'Results provided by users are inconsistent') {
+        if (response.error?.winner?.email === '') {
           this.inconsistentResults = Messages.inconsistentResult;
           this.inconsistentDuelId = duel.id;
-          duel.duelStatus = 'INCONSISTENT';
+          const index = this.duels.findIndex(d => d.id === duel.id);
+          if (index !== -1) {
+            this.duels[index] = response.error;
+          }
         }
-        // } else if (response.error.message === 'There is no next duel. Probably it was final') {
-        //
-        // }
         // TODO: show inconsistent results message
         console.log(response.error);
       }
