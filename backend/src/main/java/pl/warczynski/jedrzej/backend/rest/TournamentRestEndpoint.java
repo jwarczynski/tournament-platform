@@ -27,7 +27,6 @@ import java.util.Map;
 public class TournamentRestEndpoint {
     public static final Logger logger = LoggerFactory.getLogger(TournamentRestEndpoint.class);
     private static final String IMAGE_DIR = "uploaded-images";
-
     private final TournamentService tournamentService;
 
     @Autowired
@@ -48,10 +47,9 @@ public class TournamentRestEndpoint {
         Tournament tournament = tournamentService.getTournamentById(id).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Tournament not found"));
         return ResponseEntity.ok(tournament);
-
     }
 
-    @PostMapping(value = "/save", consumes = { "multipart/form-data" }, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/save", consumes = {"multipart/form-data"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Tournament> saveTournament(@ModelAttribute TournamentDto tournamentDto) {
         logger.info("Called post on api/tournaments/save");
         Tournament savedTournament = tournamentService.save(tournamentDto);
@@ -59,18 +57,17 @@ public class TournamentRestEndpoint {
             logger.error("Failed to create tournament");
             return ResponseEntity.status(500).build();
         }
-        logger.info("Created new tournament with data {}", savedTournament);
+        logger.info("Created new tournament with id {}", savedTournament.get_id());
         return ResponseEntity.ok().body(savedTournament);
     }
 
     @PostMapping(value = "/signup")
-    public ResponseEntity<Map<String,String>> signup(@RequestBody SingUpFormDto signupForm) {
+    public ResponseEntity<Map<String, String>> signup(@RequestBody SingUpFormDto signupForm) {
         logger.info("called post on tournaments.signup");
         return tournamentService.signUp(signupForm);
     }
 
-
-    @PostMapping(value="/test", consumes = { "multipart/form-data" })
+    @PostMapping(value = "/test", consumes = {"multipart/form-data"})
     public ResponseEntity<String> myEndpoint(HttpServletRequest req) {
         return ResponseEntity.ok().body("test");
     }
@@ -86,8 +83,4 @@ public class TournamentRestEndpoint {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-
-
-
-
 }

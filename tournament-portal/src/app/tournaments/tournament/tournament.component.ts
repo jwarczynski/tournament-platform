@@ -28,7 +28,7 @@ export class TournamentComponent {
 
   getImageFromService() {
     this.isImageLoading = true;
-    this.tournamentService.getTournamentImage(this.tournament.mainImage!).subscribe({
+    this.tournamentService.getTournamentImage(this.tournament.mainImage).subscribe({
       next: (data) => {
         this.createImageFromBlob(data);
         this.isImageLoading = false;
