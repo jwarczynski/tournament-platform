@@ -30,6 +30,14 @@ public class Player {
         this.rank = rank;
     }
 
+    public Player(Player playerToCopy) {
+        this.email = playerToCopy.getEmail();
+        this.licenseNumber = playerToCopy.getLicenseNumber();
+        this.rank = playerToCopy.getRank();
+        this.playerStatus = playerToCopy.getPlayerStatus();
+    }
+
+
     public Player() {}
 
 

@@ -86,7 +86,7 @@ public class DuelsDrawer {
         player1.setPlayerStatus(PlayerStatus.DURING_GAMEPLAY);
         Player player2 = players.get(players.size() - topNPlayer - 1 + emptyPlayers);
         player2.setPlayerStatus(PlayerStatus.DURING_GAMEPLAY);
-        duels.add(new Duel(tournamentId, player1, player2,
+        duels.add(new Duel(tournamentId, player1, player2, Player.createEmptyPlayer(),
                 DuelStatus.NOT_PLAYED, 1, duelNum));
     }
 
@@ -160,20 +160,19 @@ public class DuelsDrawer {
     }
 
     private void addDuel(Integer phase, Integer duelNum) {
-        if (phase == 2) {
-            includeFirstPhaseWinners(duelNum);
-        } else {
-            addTemplateDuel(phase, duelNum);
-        }
+        includePreviousPhaseWinners(phase, duelNum);
     }
 
-    private void includeFirstPhaseWinners(Integer duelNum) {
-        Player player1 = getWinner(1, duelNum * 2);
-        Player player2 = getWinner(1 , duelNum * 2 + 1);
+    private void includePreviousPhaseWinners(Integer phase, Integer duelNum) {
+        Player player1 = new Player(getWinner(phase-1, duelNum * 2));
+        Player player2 = new Player(getWinner(phase-1 , duelNum * 2 + 1));
+
+        player1.setPlayerStatus(PlayerStatus.DURING_GAMEPLAY);
+        player2.setPlayerStatus(PlayerStatus.DURING_GAMEPLAY);
 
         duels.add(new Duel(tournamentId, player1,
                 player2, Player.createEmptyPlayer(),
-                DuelStatus.NOT_PLAYED ,2, duelNum));
+                DuelStatus.NOT_PLAYED ,phase, duelNum));
     }
     private Player getWinner(Integer phase, Integer duelNumber) {
         Optional<Player> winner = duels.stream()
@@ -181,11 +180,5 @@ public class DuelsDrawer {
                 .map(Duel::getWinner)
                 .findFirst();
         return winner.orElseThrow(() -> new IllegalStateException("NO PREVIOUS WINNER"));
-    }
-
-    private void addTemplateDuel(Integer phase, Integer duelNum) {
-        duels.add(new Duel(tournamentId, Player.createEmptyPlayer(),
-                Player.createEmptyPlayer(), Player.createEmptyPlayer(),
-                DuelStatus.NOT_PLAYED ,phase, duelNum));
     }
 }
