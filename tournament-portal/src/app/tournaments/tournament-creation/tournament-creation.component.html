@@ -108,3 +108,8 @@
 <!--  </div>-->
 <!--</div>-->
 <app-tournament *ngIf="tournamentCreated" [tournament]="createdTournament"></app-tournament>
+<div *ngIf="tournamentCreated" class="alert alert-success mt-3">
+  <div class="d-flex justify-content-center fw-bold">
+    tournament created successfully!
+  </div>
+</div>
